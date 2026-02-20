@@ -1,0 +1,109 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# Go workspace file
+go.work
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Log files
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Build directories
+build/
+dist/
+bin/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Air live reload
+tmp/
+
+# Compiled Object files, Static and Dynamic libs (Shared Objects)
+*.o
+*.a
+*.so
+
+# Folders
+_obj
+_test
+
+# Architecture specific extensions/prefixes
+*.[568vq]
+[568vq].out
+
+# Debug files
+debug
+
+# Local configuration files (don't commit local configs)
+config.local.yaml
+config.dev.yaml
+config.prod.yaml
+
+# Test coverage
+coverage.txt
+coverage.html
+*.cover
+
+# Profiling output
+*.prof
+*.pprof
+
+# Generated files
+*.gen.go
+*.pb.go
+*.pb.gw.go
+*.swagger.json
+
+# Node modules (if using frontend)
+node_modules/
+
+# Mac specific
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows specific
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux specific
+*~
+.nfs*
