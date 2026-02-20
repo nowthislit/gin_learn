@@ -1,0 +1,35 @@
+app:
+  name: gin-shop
+  env: development
+  version: 1.0.0
+
+server:
+  port: 8080
+  mode: debug
+  read_timeout: 60
+  write_timeout: 60
+
+database:
+  type: sqlite  # sqlite, mysql, postgres
+  host: localhost
+  port: 3306
+  username: root
+  password: ""
+  database: shop.db
+  log_mode: true
+
+redis:
+  host: localhost
+  port: 6379
+  password: ""
+  db: 0
+
+log:
+  level: info  # debug, info, warn, error
+  format: json
+  output: stdout  # stdout, file
+
+jwt:
+  secret: your-secret-key-change-in-production
+  expire: 7200  # 2小时，单位秒
+  refresh_expire: 604800  # 7天，单位秒
