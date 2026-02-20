@@ -1,0 +1,30 @@
+meta {
+  name: users
+  type: http
+  seq: 4
+}
+
+get {
+  url: 127.0.0.1/api/v1/users?page=2&page_size=10
+  body: none
+  auth: inherit
+}
+
+params:query {
+  page: 2
+  page_size: 10
+}
+
+body:json {
+  {
+    "page": "tom",
+    "page": "dlnfbygej@gmail.com",
+    "password": "1234",
+    "age": 12
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

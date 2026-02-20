@@ -1,0 +1,12 @@
+opencollection: 1.0.0
+info:
+  name: "gin_learn_api"
+  type: workspace
+
+collections:
+  - name: "phase1_basic_ex_api"
+    path: "..\\phase1_basic\\exercises\\phase1_basic_ex_api"
+
+specs:
+
+docs: ''

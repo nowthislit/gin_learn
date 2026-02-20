@@ -135,8 +135,8 @@ type LoginRequest struct {
 
 func handler(c *gin.Context) {
     var req LoginRequest
-    if err := c.ShouldBindJSON(&req); err != nil {
-        c.JSON(400, gin.H{"error": err.Error()})
+    if convErr := c.ShouldBindJSON(&req); convErr != nil {
+        c.JSON(400, gin.H{"error": convErr.Error()})
         return
     }
     // 处理req...

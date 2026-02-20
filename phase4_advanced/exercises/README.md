@@ -330,17 +330,17 @@ if result.RowsAffected == 0 {
 func (s *ProductService) GetProduct(id uint) (*Product, error) {
     // 1. 查 Redis
     key := fmt.Sprintf("product:%d", id)
-    data, err := redis.Get(key)
-    if err == nil {
+    data, convErr := redis.Get(key)
+    if convErr == nil {
         var product Product
         json.Unmarshal(data, &product)
         return &product, nil
     }
     
     // 2. 查数据库
-    product, err := s.repo.GetByID(id)
-    if err != nil {
-        return nil, err
+    product, convErr := s.repo.GetByID(id)
+    if convErr != nil {
+        return nil, convErr
     }
     
     // 3. 写入 Redis

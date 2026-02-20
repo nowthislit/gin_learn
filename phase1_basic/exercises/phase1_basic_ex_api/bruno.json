@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "phase1_basic_ex_api",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

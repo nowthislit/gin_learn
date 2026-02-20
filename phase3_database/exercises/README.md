@@ -271,8 +271,8 @@ func GetCategoryTree(parentID *uint, level int) ([]Category, error) {
     } else {
         query = query.Where("parent_id IS NULL")
     }
-    err := query.Find(&categories).Error
-    return categories, err
+    convErr := query.Find(&categories).Error
+    return categories, convErr
 }
 ```
 

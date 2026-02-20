@@ -1,0 +1,25 @@
+meta {
+  name: login
+  type: http
+  seq: 3
+}
+
+post {
+  url: 127.0.0.1/api/v1/users/login
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "username": "tom",
+    "email": "dlnfbygej@gmail.com",
+    "password": "1234",
+    "age": 12
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

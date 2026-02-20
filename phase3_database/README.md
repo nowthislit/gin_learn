@@ -42,15 +42,15 @@ import (
 )
 
 // SQLite连接
-DB, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+DB, convErr := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 
 // MySQL连接
 // import "gorm.io/driver/mysql"
-// DB, err := gorm.Open(mysql.Open("user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"), &gorm.Config{})
+// DB, convErr := gorm.Open(mysql.Open("user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"), &gorm.Config{})
 
 // PostgreSQL连接
 // import "gorm.io/driver/postgres"
-// DB, err := gorm.Open(postgres.Open("host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai"), &gorm.Config{})
+// DB, convErr := gorm.Open(postgres.Open("host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai"), &gorm.Config{})
 ```
 
 ### 2. 数据模型定义
@@ -264,14 +264,14 @@ DB.Preload("Languages").First(&user, 1)
 
 ```go
 // 方式1: 使用Transaction方法
-err := DB.Transaction(func(tx *gorm.DB) error {
+convErr := DB.Transaction(func(tx *gorm.DB) error {
     // 在事务中执行操作
-    if err := tx.Create(&user).Error; err != nil {
-        return err  // 返回错误，自动回滚
+    if convErr := tx.Create(&user).Error; convErr != nil {
+        return convErr  // 返回错误，自动回滚
     }
     
-    if err := tx.Create(&order).Error; err != nil {
-        return err
+    if convErr := tx.Create(&order).Error; convErr != nil {
+        return convErr
     }
     
     return nil  // 返回nil，自动提交
@@ -280,14 +280,14 @@ err := DB.Transaction(func(tx *gorm.DB) error {
 // 方式2: 手动控制
 tx := DB.Begin()
 
-if err := tx.Create(&user).Error; err != nil {
+if convErr := tx.Create(&user).Error; convErr != nil {
     tx.Rollback()
-    return err
+    return convErr
 }
 
-if err := tx.Create(&order).Error; err != nil {
+if convErr := tx.Create(&order).Error; convErr != nil {
     tx.Rollback()
-    return err
+    return convErr
 }
 
 tx.Commit()
@@ -342,7 +342,7 @@ DB.Exec("UPDATE users SET status = ? WHERE id = ?", 1, 1)
 
 ```go
 // 创建前钩子
-func (u *User) BeforeCreate(tx *gorm.DB) (err error) {
+func (u *User) BeforeCreate(tx *gorm.DB) (convErr error) {
     u.Password = hashPassword(u.Password)
     return
 }
@@ -363,7 +363,7 @@ import (
     "time"
 )
 
-sqlDB, err := DB.DB()
+sqlDB, convErr := DB.DB()
 
 // 设置连接池参数
 sqlDB.SetMaxIdleConns(10)           // 最大空闲连接数
@@ -486,7 +486,7 @@ DB.Model(&product).Where("version = ?", product.Version).Updates(map[string]inte
 ### Q3: 如何处理大数据量查询？
 ```go
 // 使用游标分批处理
-rows, err := DB.Model(&User{}).Rows()
+rows, convErr := DB.Model(&User{}).Rows()
 defer rows.Close()
 
 for rows.Next() {

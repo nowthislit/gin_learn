@@ -128,7 +128,7 @@ logger.Info("User created",
     logger.Int("id", 123))
 
 logger.Error("Failed to create user", 
-    logger.ErrorField(err))
+    logger.ErrorField(convErr))
 ```
 
 **特性：**
@@ -336,7 +336,7 @@ func (r *orderRepository) CreateOrder(...) error {
         // 在事务中执行操作
         // ...
         return nil // 提交
-        // return err // 回滚
+        // return convErr // 回滚
     })
 }
 ```

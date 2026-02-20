@@ -212,15 +212,15 @@ type User struct {
 ```go
 func handler(c *gin.Context) {
     var req User
-    if err := c.ShouldBindJSON(&req); err != nil {
+    if convErr := c.ShouldBindJSON(&req); convErr != nil {
         // 解析验证错误
-        if errs, ok := err.(validator.ValidationErrors); ok {
+        if errs, ok := convErr.(validator.ValidationErrors); ok {
             for _, e := range errs {
                 fmt.Printf("%s: %s\n", e.Field(), e.Tag())
             }
         }
         
-        c.JSON(400, gin.H{"error": err.Error()})
+        c.JSON(400, gin.H{"error": convErr.Error()})
         return
     }
 }
@@ -255,8 +255,8 @@ type Request struct {
 
 #### 全局错误恢复
 ```go
-r.Use(gin.CustomRecovery(func(c *gin.Context, err interface{}) {
-    log.Println("Panic recovered:", err)
+r.Use(gin.CustomRecovery(func(c *gin.Context, convErr interface{}) {
+    log.Println("Panic recovered:", convErr)
     c.JSON(500, gin.H{
         "error": "服务器内部错误",
     })
@@ -266,10 +266,10 @@ r.Use(gin.CustomRecovery(func(c *gin.Context, err interface{}) {
 #### 业务错误处理
 ```go
 func handler(c *gin.Context) {
-    if err := doSomething(); err != nil {
+    if convErr := doSomething(); convErr != nil {
         c.JSON(500, gin.H{
             "error": "操作失败",
-            "details": err.Error(),
+            "details": convErr.Error(),
         })
         return
     }
