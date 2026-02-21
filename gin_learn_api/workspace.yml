@@ -6,6 +6,8 @@ info:
 collections:
   - name: "phase1_basic_ex_api"
     path: "..\\phase1_basic\\exercises\\phase1_basic_ex_api"
+  - name: "phase2_middleware_ex_api"
+    path: "..\\phase2_middleware\\exercises\\phase2_middleware_ex_api"
 
 specs:
 

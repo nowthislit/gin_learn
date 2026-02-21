@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "phase2_middleware_ex_api",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

@@ -5,17 +5,15 @@ meta {
 }
 
 post {
-  url: 127.0.0.1:8080/api/v1/users/register
+  url: 127.0.0.1:8080/api/v1/auth/register
   body: json
   auth: inherit
 }
 
 body:json {
   {
-    "username": "tom",
-    "email": "dlnfbygej@gmail.com",
-    "password": "123456",
-    "age": 12
+    "username":"john",
+    "role":"user"
   }
 }
 
