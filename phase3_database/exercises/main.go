@@ -105,6 +105,14 @@ type Response struct {
 	Data    interface{} `json:"data,omitempty"`
 }
 
+// Request 用户注册登录请求参数
+type Request struct {
+	Username string `json:"username"`
+	Email    string `json:"email"`
+	Password string `json:"-"`
+	Bio      string `json:"bio"` // 简介
+}
+
 func main() {
 	// 初始化数据库
 	initDB()
@@ -113,9 +121,26 @@ func main() {
 	r := gin.Default()
 
 	// TODO: 实现以下 API
-
+	baseApi := r.Group("/api/v1")
 	// ==================== 认证相关 ====================
+	authApi := baseApi.Group("/auth")
 	// POST /api/v1/auth/register - 注册
+	authApi.POST("/register", func(ctx *gin.Context) {
+		var params Request
+		bindErr := ctx.ShouldBindJSON(&params)
+		if bindErr != nil {
+			ctx.JSON(http.StatusInternalServerError, Response{Code: -1, Message: bindErr.Error()})
+			return
+		}
+		// 用户是否存在
+		var suser User
+		result := DB.Where("username = ?", params.Username).First(&suser)
+		if result.RowsAffected != 0 {
+			ctx.JSON(http.StatusOK, Response{Code: -1, Message: "User already exists"})
+			return
+		}
+
+	})
 	// POST /api/v1/auth/login - 登录
 
 	// ==================== 文章相关 ====================
@@ -171,7 +196,8 @@ func initDB() {
 		&Comment{},
 	)
 
-	// TODO: 插入测试数据
+	// 插入测试数据
+	seedData()
 }
 
 // ==================== 辅助函数 ====================
